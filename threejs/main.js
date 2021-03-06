@@ -8,9 +8,9 @@ var controls;
 var stats;
 
 // Objects in Scene
-var sun, earth;
+var sun, earth, mercury, venus, mars, jupiter, saturn, uranus, neptune;
 // To be added 
-var moon;
+var moon, saturn_ring;
 
 // Light in the scene 
 var sunlight;
@@ -31,30 +31,64 @@ function init() {
 
     // Setting up scene
     scene = new THREE.Scene();
-    // Earth
+    // Planets
+    mercury = createSphere(0.5, 20, 'texture/mercury.jpg', 'Phong');
+    mercury.position.z = -10;
+
+    venus = createSphere(1.3, 20, 'texture/venus_surface.jpg', 'Phong');
+    venus.position.z = -14;
+    //adicionar atmosfera
+
     earth = createSphere(1, 20, 'texture/earth.jpg', 'Phong');
-    earth.position.z = -12;
+    earth.position.z = -18;
 
     moon = createSphere(0.2, 20, 'texture/moon.jpg', 'Phong')
-    moon.position.z = -10;
-    earth.add(moon)
+    moon.position.z = -1.5;
+    earth.add(moon);
+
+    mars = createSphere(0.6, 20, 'texture/mars.jpg', 'Phong');
+    mars.position.z = -21;
+
+    jupiter = createSphere(2, 20, 'texture/jupiter.jpg', 'Phong');
+    jupiter.position.z = -25;
+
+    saturn = createSphere(1.8, 20, 'texture/saturn.jpg', 'Phong');
+    saturn.position.z = -30;
+    
+    // saturn_ring = createRing(2, 4, 20, 'texture/saturn_ring_alpha.png', 'Phong');
+    // saturn_ring.position.z = 0;
+    // saturn.add(saturn_ring);
+
+    uranus = createSphere(1, 20, 'texture/uranus.jpg', 'Phong');
+    uranus.position.z = -33;
+
+    neptune = createSphere(0.8, 20, 'texture/neptune.jpg', 'Phong');
+    neptune.position.z = -37;
 
     // Sun (Sphere + Light)
-    sun = createSphere(1.25, 20, 'texture/sun.jpg');
+    sun = createSphere(4, 20, 'texture/sun.jpg');
     sun.position.z = -3;
     /* Complete: add light
     sunlight...;
     sun...
     */
     const light = new THREE.PointLight( 0xffffff, 1, 0, 2);
+    
     sun.add(light);
+    light.decay = 10;
 
     /* Complete: add 
     other planets */ 
 
     scene.add(earth);
+    scene.add(mercury);
+    scene.add(venus);
+    scene.add(mars);
+    scene.add(jupiter);
+    scene.add(saturn);
+    scene.add(uranus);
+    scene.add(neptune);
     scene.add(sun);
-
     
     // Adding both renderer and stats to the Web page, also adjusting OrbitControls
     stats = new Stats();
@@ -97,6 +131,7 @@ function animate() {
     stats.update();
     renderer.render( scene, camera );
     earth.rotation.y+=0.02
+    mercury.rotation.y+=0.02
     
 
 }
