@@ -19,7 +19,7 @@ function createSphere(radius, segments, texture_path, type = 'Basic') {
 
 
 function createRing(inner_radius, outer_radius, segments, texture_path, type = 'Basic') {
-    var ring_geom = new THREE.SphereGeometry(inner_radius, outer_radius, segments, segments);
+    var ring_geom = new THREE.RingBufferGeometry(inner_radius, outer_radius, segments, segments);
     const loader = new THREE.TextureLoader();
     const texture = loader.load(texture_path);
     if(type == 'Phong') {
