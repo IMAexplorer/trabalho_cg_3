@@ -25,9 +25,10 @@ function init() {
 
     // Setting up camera
     camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 0.5, 1000 );
-    camera.position.z = 3;
-    camera.position.y = 20;
-    camera.lookAt( 0, 0, -4);
+    camera.position.z = 5;
+    camera.position.y = 44;
+    camera.position.x = 42;
+    camera.lookAt( 44, 42, -30);
 
     // Setting up scene
     scene = new THREE.Scene();
@@ -37,7 +38,6 @@ function init() {
 
     venus = createSphere(1.3, 20, 'texture/venus_surface.jpg', 'Phong');
     venus.position.z = -14;
-    //adicionar atmosfera
 
     earth = createSphere(1, 20, 'texture/earth.jpg', 'Phong');
     earth.position.z = -18;
@@ -72,10 +72,12 @@ function init() {
     sunlight...;
     sun...
     */
-    const light = new THREE.PointLight( 0xffffff, 1, 0, 2);
-    
+    const light = new THREE.PointLight( 0xffffff, 1, 100, -10);
+    // light.decay = 100000;
     sun.add(light);
-    light.decay = 10;
+    console.log(light);
+    //cor, intensidade, distancia, decay
+    
 
     /* Complete: add 
     other planets */ 
@@ -110,7 +112,6 @@ function init() {
 }
 
 function onWindowResize() {
-
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
