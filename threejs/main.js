@@ -28,7 +28,7 @@ function init() {
     camera.position.z = 5;
     camera.position.y = 44;
     camera.position.x = 42;
-    camera.lookAt( 44, 42, -30);
+    camera.lookAt( -40, 42, -30);
 
     // Setting up scene
     scene = new THREE.Scene();
@@ -37,33 +37,32 @@ function init() {
     mercury.position.z = -10;
 
     venus = createSphere(1.3, 20, 'texture/venus_surface.jpg', 'Phong');
-    venus.position.z = -14;
+    venus.position.z = -15;
 
     earth = createSphere(1, 20, 'texture/earth.jpg', 'Phong');
-    earth.position.z = -18;
-
+    earth.position.z = -20;
     moon = createSphere(0.2, 20, 'texture/moon.jpg', 'Phong')
     moon.position.z = -1.5;
     earth.add(moon);
 
     mars = createSphere(0.6, 20, 'texture/mars.jpg', 'Phong');
-    mars.position.z = -21;
+    mars.position.z = -24;
 
     jupiter = createSphere(2, 20, 'texture/jupiter.jpg', 'Phong');
-    jupiter.position.z = -25;
+    jupiter.position.z = -29;
 
     saturn = createSphere(1.8, 20, 'texture/saturn.jpg', 'Phong');
-    saturn.position.z = -30;
+    saturn.position.z = -36;
     
     // saturn_ring = createRing(2, 4, 20, 'texture/saturn_ring_alpha.png', 'Phong');
     // saturn_ring.position.z = 0;
     // saturn.add(saturn_ring);
 
     uranus = createSphere(1, 20, 'texture/uranus.jpg', 'Phong');
-    uranus.position.z = -33;
+    uranus.position.z = -41;
 
     neptune = createSphere(0.8, 20, 'texture/neptune.jpg', 'Phong');
-    neptune.position.z = -37;
+    neptune.position.z = -47;
 
     // Sun (Sphere + Light)
     sun = createSphere(4, 20, 'texture/sun.jpg');
@@ -72,7 +71,7 @@ function init() {
     sunlight...;
     sun...
     */
-    const light = new THREE.PointLight( 0xffffff, 1, 100, -10);
+    const light = new THREE.PointLight( 0xffffff, 1.5, 100, 2);
     // light.decay = 100000;
     sun.add(light);
     console.log(light);
