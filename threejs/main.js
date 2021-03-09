@@ -69,8 +69,6 @@ function init() {
     neptune = createSphere(0.8, 20, 'texture/neptune.jpg', 'Phong');
     neptune.position.z = -47;
 
-    // Sun (Sphere + Light)
-
     sun = createSphere(4, 20, 'texture/sun.jpg');
     sun.position.z = 0;
     fakeSun = createSphere(4.05, 20, 'texture/sun.jpg');
@@ -161,21 +159,6 @@ function animate() {
     neptune.rotateAroundPoint(a, dia/164, b, true);
     neptune.rotateAroundPoint(new THREE.Vector3(neptune.position.x, neptune.position.y, neptune.position.z), -dia/0.67, b, false);
 }
-// function planet_mov(planet, rel_rot, rel_trans, inverse) {
-
-//     var translation = 0.1/rel_trans;
-//     var rotation = 0.1/rel_rot;
-
-//     if (inverse) {
-//         rotation *= -1;
-//     }
-//     const eixo = new THREE.Vector3( 0, 1, 0 );
-//     const point_translate = new THREE.Vector3( 0, 0, planet.z );
-//     const point_rotate = new THREE.Vector3(planet.position.x, planet.position.y, planet.position.z);
-
-//     planet.rotateAroundPoint(point_translate, translation, eixo, false); 
-//     planet.rotateAroundPoint(point_rotate, rotation, eixo, false); 
-// }
 
 init();
 animate();
