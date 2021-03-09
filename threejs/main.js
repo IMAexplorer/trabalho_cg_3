@@ -57,7 +57,6 @@ function init() {
     saturn_ring = createRing(2, 2.4, 20, 'texture/saturn_ring_alpha.png', 'Phong');
     saturn_ring.position.z = 0;
     saturn_ring.rotation.x =  -1.1;
-    console.log(saturn_ring);
     saturn.add(saturn_ring);
 
     uranus = createSphere(1, 20, 'texture/uranus.jpg', 'Phong');
