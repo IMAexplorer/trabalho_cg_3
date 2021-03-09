@@ -54,9 +54,11 @@ function init() {
     saturn = createSphere(1.8, 20, 'texture/saturn.jpg', 'Phong');
     saturn.position.z = -36;
     
-    // saturn_ring = createRing(2, 4, 20, 'texture/saturn_ring_alpha.png', 'Phong');
-    // saturn_ring.position.z = 0;
-    // saturn.add(saturn_ring);
+    saturn_ring = createRing(2, 2.4, 20, 'texture/saturn_ring_alpha.png', 'Phong');
+    saturn_ring.position.z = 0;
+    saturn_ring.rotation.x =  -1.1;
+    console.log(saturn_ring);
+    saturn.add(saturn_ring);
 
     uranus = createSphere(1, 20, 'texture/uranus.jpg', 'Phong');
     uranus.position.z = -41;
@@ -66,7 +68,7 @@ function init() {
 
     // Sun (Sphere + Light)
     sun = createSphere(4, 20, 'texture/sun.jpg');
-    sun.position.z = -3;
+    sun.position.z = 0;
     /* Complete: add light
     sunlight...;
     sun...
