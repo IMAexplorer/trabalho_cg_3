@@ -136,10 +136,9 @@ function animate() {
     fakeEarth.rotateAroundPoint(a, dia/365, b, true);
     fakeEarth.rotateAroundPoint(new THREE.Vector3(earth.position.x, earth.position.y, earth.position.z), dia, b, false);
     
-    // fakeSun.rotateAroundPoint(a, dia/365, b, true);
-    // fakeSun.rotateAroundPoint(new THREE.Vector3(earth.position.x, earth.position.y, earth.position.z), dia, b, false);
+    fakeSun.rotateAroundPoint(a, dia/27, b, true);
 
-    moon.rotateAroundPoint(new THREE.Vector3(0, 0, 0), dia/24, b, false);
+    moon.rotateAroundPoint(new THREE.Vector3(0, 0, 0), dia/27, b, false);
 
 }
 
