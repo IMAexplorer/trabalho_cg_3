@@ -132,6 +132,7 @@ function animate() {
     renderer.render( scene, camera );
     const a = new THREE.Vector3( 0, 0, 0 );
     const b = new THREE.Vector3( 0, 1, 0 );
+    // const bneg = new THREE.Vector3( 0, -1, 0 );
 
     earth.rotateAroundPoint(a, ano, b, true);
     fakeEarth.rotateAroundPoint(a, ano, b, true);
@@ -139,17 +140,36 @@ function animate() {
     
     fakeSun.rotateAroundPoint(a, dia/27, b, true);
     moon.rotateAroundPoint(new THREE.Vector3(0, 0, 0), dia/27, b, false);
-    
-    // planet_mov(fakeEarth, 1, 365, false);
-    planet_mov(mercury, 58, 88, false);
-    planet_mov(venus, 116, 225, false);
-    // planet_mov(earth, 1, 365, false);
-    planet_mov(mars, 1, 687, false)
-    planet_mov(jupiter, 0.41, 4328, false);
-    planet_mov(saturn, 0.45, 10752, false);
-    planet_mov(uranus, 0.72, 84, false);
-    planet_mov(neptune, 0.67, 164, false);
 
+    mercury.rotateAroundPoint(a, dia/88, b, true);
+    mercury.rotateAroundPoint(new THREE.Vector3(mercury.position.x, mercury.position.y, mercury.position.z), dia/58, b, false);
+
+    venus.rotateAroundPoint(a, dia/225, b, true);
+    venus.rotateAroundPoint(new THREE.Vector3(venus.position.x, venus.position.y, venus.position.z), dia/116, b, false);
+
+    mars.rotateAroundPoint(a, dia/687, b, true);
+    mars.rotateAroundPoint(new THREE.Vector3(mars.position.x, mars.position.y, mars.position.z), dia/1, b, false);
+    
+    jupiter.rotateAroundPoint(a, dia/4328, b, true);
+    jupiter.rotateAroundPoint(new THREE.Vector3(jupiter.position.x, jupiter.position.y, jupiter.position.z), dia/0.41, b, false);
+    
+    saturn.rotateAroundPoint(a, dia/10725, b, true);
+    saturn.rotateAroundPoint(new THREE.Vector3(saturn.position.x, saturn.position.y, saturn.position.z), dia/0.45, b, false);
+    
+    uranus.rotateAroundPoint(a, dia/84, b, true);
+    uranus.rotateAroundPoint(new THREE.Vector3(uranus.position.x, uranus.position.y, uranus.position.z), dia/0.72, b, false);
+
+    neptune.rotateAroundPoint(a, dia/164, b, true);
+    neptune.rotateAroundPoint(new THREE.Vector3(neptune.position.x, neptune.position.y, neptune.position.z), dia/0.67, b, false);
+    // planet_mov(fakeEarth, 1, 365, false);
+    // planet_mov(mercury, 58, 88, false);
+    // planet_mov(venus, 116, 225, false);
+    // planet_mov(earth, 1, 365, false);
+    // planet_mov(mars, 1, 687, false)
+    // planet_mov(jupiter, 0.41, 4328, false);
+    // planet_mov(saturn, 0.45, 10752, false);
+    // planet_mov(uranus, 0.72, 84, true);
+    // planet_mov(neptune, 0.67, 164, true);
 }
 
 
@@ -165,8 +185,8 @@ function planet_mov(planet, rel_rot, rel_trans, inverse) {
     const point_translate = new THREE.Vector3( 0, 0, planet.z );
     const point_rotate = new THREE.Vector3(planet.position.x, planet.position.y, planet.position.z);
 
-    planet.rotateAroundPoint(point_translate, translation, eixo, false); // 10752
-    planet.rotateAroundPoint(point_rotate, rotation, eixo, false); // 0.45
+    planet.rotateAroundPoint(point_translate, translation, eixo, false); 
+    planet.rotateAroundPoint(point_rotate, rotation, eixo, false); 
 }
 
 init();
