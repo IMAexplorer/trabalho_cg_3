@@ -1,4 +1,4 @@
-// ThreeJS variables
+// ThreeJS variables#
 var camera, scene, renderer;
 
 // OrbitControls (camera)
@@ -8,20 +8,21 @@ var controls;
 var stats;
 
 // Objects in Scene
-var sun, earth, mercury, venus, mars, jupiter, saturn, uranus, neptune;
-// To be added 
+var sun, earth, mercury, venus, mars, jupiter, saturn, uranus, neptune, fakeEarth, fakeSun;
+// To be added
 var moon, saturn_ring;
 
-// Light in the scene 
+// Light in the scene
 var sunlight;
-
+var dia = 0.1
+var ano = dia/365
 
 function init() {
 
     // Setting up renderer
     renderer = new THREE.WebGLRenderer({ antialias: true });
     window.addEventListener('resize', onWindowResize, false);
-    renderer.setSize(window.innerWidth, window.innerHeight); 
+    renderer.setSize(window.innerWidth, window.innerHeight);
 
     // Setting up camera
     camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 0.5, 1000 );
@@ -41,6 +42,9 @@ function init() {
 
     earth = createSphere(1, 20, 'texture/earth.jpg', 'Phong');
     earth.position.z = -20;
+    fakeEarth = createSphere(1.05, 20, 'texture/earth.jpg', 'Phong');
+    fakeEarth.position.z = -20;
+    
     moon = createSphere(0.2, 20, 'texture/moon.jpg', 'Phong')
     moon.position.z = -1.5;
     earth.add(moon);
@@ -66,56 +70,50 @@ function init() {
     neptune.position.z = -47;
 
     // Sun (Sphere + Light)
+
     sun = createSphere(4, 20, 'texture/sun.jpg');
     sun.position.z = 0;
-    /* Complete: add light
-    sunlight...;
-    sun...
-    */
+    fakeSun = createSphere(4.05, 20, 'texture/sun.jpg');
+    fakeSun.position.z = 0;
+
     const light = new THREE.PointLight( 0xffffff, 1.5, 100, 2);
-    // light.decay = 100000;
     sun.add(light);
-    console.log(light);
-    //cor, intensidade, distancia, decay
     
-
-    /* Complete: add 
-    other planets */ 
-
-    scene.add(earth);
-    scene.add(mercury);
-    scene.add(venus);
-    scene.add(mars);
-    scene.add(jupiter);
-    scene.add(saturn);
-    scene.add(uranus);
-    scene.add(neptune);
     scene.add(sun);
-    
-    // Adding both renderer and stats to the Web page, also adjusting OrbitControls
+    scene.add(fakeSun);
+    sun.add(mercury);
+    sun.add(fakeEarth);
+    sun.add(venus);
+    sun.add(mars);
+    sun.add(jupiter);
+    sun.add(saturn);
+    sun.add(uranus);
+    sun.add(neptune);
+    sun.add(earth);
+
     stats = new Stats();
     document.body.appendChild(renderer.domElement);
     document.body.appendChild(stats.dom);
     controls = new THREE.OrbitControls( camera, renderer.domElement );
     controls.zoomSpeed = 2;
 
-    // Adding listener for keydown 
+    // Adding listener for keydown
     document.addEventListener("keydown", onDocumentKeyDown, false);
 
-    // Saving initial position 
+    // Saving initial position
     scene.traverse( function( node ) {
         if ( node instanceof THREE.Object3D ) {
             node.savePosition();
         }
-    
-    } ); 
+
+    } );
 }
 
 function onWindowResize() {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
-    
+
 }
 
 function onDocumentKeyDown(event) {
@@ -123,7 +121,7 @@ function onDocumentKeyDown(event) {
 }
 
 function animate() {
-    
+
     requestAnimationFrame( animate );
 
 	// required if controls.enableDamping or controls.autoRotate are set to true
@@ -131,13 +129,19 @@ function animate() {
 
     stats.update();
     renderer.render( scene, camera );
-    earth.rotation.y+=0.02
-    mercury.rotation.y+=0.02
+    const a = new THREE.Vector3( 0, 0, 0 );
+    const b = new THREE.Vector3( 0, 1, 0 );
+
+    earth.rotateAroundPoint(a, dia/365, b, true);
+    fakeEarth.rotateAroundPoint(a, dia/365, b, true);
+    fakeEarth.rotateAroundPoint(new THREE.Vector3(earth.position.x, earth.position.y, earth.position.z), dia, b, false);
     
+    // fakeSun.rotateAroundPoint(a, dia/365, b, true);
+    // fakeSun.rotateAroundPoint(new THREE.Vector3(earth.position.x, earth.position.y, earth.position.z), dia, b, false);
+
+    moon.rotateAroundPoint(new THREE.Vector3(0, 0, 0), dia/24, b, false);
 
 }
 
 init();
 animate();
-
-
