@@ -14,8 +14,6 @@ var moon, saturn_ring;
 
 // Light in the scene
 var sunlight;
-var dia = 0.1
-var ano = dia/365
 
 function init() {
 
@@ -73,9 +71,8 @@ function init() {
     saturn = createSphere(1.8, 20, 'texture/saturn.jpg', 'Phong');
     saturn.position.z = -30;
 
-    // saturn_ring = createRing(2, 4, 20, 'texture/saturn_ring_alpha.png', 'Phong');
-    // saturn_ring.position.z = 0;
-    // saturn.add(saturn_ring);
+    saturn_ring = createRing(1, 1.2, 20, 'texture/saturn_ring_alpha.png', 'Phong');
+    saturn.add(saturn_ring);
 
     uranus = createSphere(1, 20, 'texture/uranus.jpg', 'Phong');
     uranus.position.z = -33;
@@ -89,8 +86,6 @@ function init() {
     sun.position.z = -3;
 
     /* Complete: add light
-    sunlight...;
-    sun...
     */
     const light = new THREE.PointLight( 0xffffff, 1, 0, 2);
 
@@ -102,6 +97,7 @@ function init() {
 
     scene.add(sun);
 
+    sun.add(mercury);
     sun.add(venus);
     sun.add(mars);
     sun.add(jupiter);
@@ -109,7 +105,6 @@ function init() {
     sun.add(uranus);
     sun.add(neptune);
     sun.add(earth);
-    //sunPivot.add(earth);
     // Adding both renderer and stats to the Web page, also adjusting OrbitControls
     stats = new Stats();
     document.body.appendChild(renderer.domElement);
@@ -150,15 +145,33 @@ function animate() {
 
     stats.update();
     renderer.render( scene, camera );
-    const a = new THREE.Vector3( 0, 0, -3 );
-    const b = new THREE.Vector3( 0, 1, 0 );
+    
+    planet_mov(mercury, 58, 88, false);
+    planet_mov(venus, 116, 225, false);
+    planet_mov(earth, 1, 365, false);
+    planet_mov(mars, 1, 687, false)
+    planet_mov(jupiter, 0.41, 4328, false);
+    planet_mov(saturn, 0.45, 10752, false);
+    planet_mov(uranus, 0.72, 84, true);
+    planet_mov(neptune, 0.67, 164, true);
 
-    earth.rotateAroundPoint(a, dia/365, b, true);
-    earth.rotateAroundPoint(new THREE.Vector3(earth.position.x, earth.position.y, earth.position.z), dia, b, false);
+}
 
-   // earth.rotation.y += dia;
-    //sun.rotation.y += dia/27;
 
+function planet_mov(planet, rel_rot, rel_trans, inverse) {
+
+    var translation = 0.1/rel_trans;
+    var rotation = 0.1/rel_rot;
+
+    if (inverse) {
+        rotation *= -1;
+    }
+    const eixo = new THREE.Vector3( 0, 1, 0 );
+    const point_translate = new THREE.Vector3( 0, 0, planet.z );
+    const point_rotate = new THREE.Vector3(planet.position.x, planet.position.y, planet.position.z);
+
+    planet.rotateAroundPoint(point_translate, translation, eixo, false); // 10752
+    planet.rotateAroundPoint(point_rotate, rotation, eixo, false); // 0.45
 }
 
 init();
