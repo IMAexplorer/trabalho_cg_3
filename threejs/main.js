@@ -14,8 +14,8 @@ var moon, saturn_ring;
 
 // Light in the scene
 var sunlight;
-var dia = 0.1
-var ano = dia/365
+var dia = 0.1;
+var ano = dia/365;
 
 function init() {
 
@@ -91,6 +91,7 @@ function init() {
     sun.add(neptune);
     sun.add(earth);
 
+    // Adding both renderer and stats to the Web page, also adjusting OrbitControls
     stats = new Stats();
     document.body.appendChild(renderer.domElement);
     document.body.appendChild(stats.dom);
@@ -132,14 +133,40 @@ function animate() {
     const a = new THREE.Vector3( 0, 0, 0 );
     const b = new THREE.Vector3( 0, 1, 0 );
 
-    earth.rotateAroundPoint(a, dia/365, b, true);
-    fakeEarth.rotateAroundPoint(a, dia/365, b, true);
+    earth.rotateAroundPoint(a, ano, b, true);
+    fakeEarth.rotateAroundPoint(a, ano, b, true);
     fakeEarth.rotateAroundPoint(new THREE.Vector3(earth.position.x, earth.position.y, earth.position.z), dia, b, false);
     
     fakeSun.rotateAroundPoint(a, dia/27, b, true);
-
     moon.rotateAroundPoint(new THREE.Vector3(0, 0, 0), dia/27, b, false);
+    
+    // planet_mov(fakeEarth, 1, 365, false);
+    planet_mov(mercury, 58, 88, false);
+    planet_mov(venus, 116, 225, false);
+    // planet_mov(earth, 1, 365, false);
+    planet_mov(mars, 1, 687, false)
+    planet_mov(jupiter, 0.41, 4328, false);
+    planet_mov(saturn, 0.45, 10752, false);
+    planet_mov(uranus, 0.72, 84, false);
+    planet_mov(neptune, 0.67, 164, false);
 
+}
+
+
+function planet_mov(planet, rel_rot, rel_trans, inverse) {
+
+    var translation = 0.1/rel_trans;
+    var rotation = 0.1/rel_rot;
+
+    if (inverse) {
+        rotation *= -1;
+    }
+    const eixo = new THREE.Vector3( 0, 1, 0 );
+    const point_translate = new THREE.Vector3( 0, 0, planet.z );
+    const point_rotate = new THREE.Vector3(planet.position.x, planet.position.y, planet.position.z);
+
+    planet.rotateAroundPoint(point_translate, translation, eixo, false); // 10752
+    planet.rotateAroundPoint(point_rotate, rotation, eixo, false); // 0.45
 }
 
 init();
