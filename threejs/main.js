@@ -132,7 +132,6 @@ function animate() {
     renderer.render( scene, camera );
     const a = new THREE.Vector3( 0, 0, 0 );
     const b = new THREE.Vector3( 0, 1, 0 );
-    // const bneg = new THREE.Vector3( 0, -1, 0 );
 
     earth.rotateAroundPoint(a, ano, b, true);
     fakeEarth.rotateAroundPoint(a, ano, b, true);
@@ -157,37 +156,26 @@ function animate() {
     saturn.rotateAroundPoint(new THREE.Vector3(saturn.position.x, saturn.position.y, saturn.position.z), dia/0.45, b, false);
     
     uranus.rotateAroundPoint(a, dia/84, b, true);
-    uranus.rotateAroundPoint(new THREE.Vector3(uranus.position.x, uranus.position.y, uranus.position.z), dia/0.72, b, false);
+    uranus.rotateAroundPoint(new THREE.Vector3(uranus.position.x, uranus.position.y, uranus.position.z), -dia/0.72, b, false);
 
     neptune.rotateAroundPoint(a, dia/164, b, true);
-    neptune.rotateAroundPoint(new THREE.Vector3(neptune.position.x, neptune.position.y, neptune.position.z), dia/0.67, b, false);
-    // planet_mov(fakeEarth, 1, 365, false);
-    // planet_mov(mercury, 58, 88, false);
-    // planet_mov(venus, 116, 225, false);
-    // planet_mov(earth, 1, 365, false);
-    // planet_mov(mars, 1, 687, false)
-    // planet_mov(jupiter, 0.41, 4328, false);
-    // planet_mov(saturn, 0.45, 10752, false);
-    // planet_mov(uranus, 0.72, 84, true);
-    // planet_mov(neptune, 0.67, 164, true);
+    neptune.rotateAroundPoint(new THREE.Vector3(neptune.position.x, neptune.position.y, neptune.position.z), -dia/0.67, b, false);
 }
+// function planet_mov(planet, rel_rot, rel_trans, inverse) {
 
+//     var translation = 0.1/rel_trans;
+//     var rotation = 0.1/rel_rot;
 
-function planet_mov(planet, rel_rot, rel_trans, inverse) {
+//     if (inverse) {
+//         rotation *= -1;
+//     }
+//     const eixo = new THREE.Vector3( 0, 1, 0 );
+//     const point_translate = new THREE.Vector3( 0, 0, planet.z );
+//     const point_rotate = new THREE.Vector3(planet.position.x, planet.position.y, planet.position.z);
 
-    var translation = 0.1/rel_trans;
-    var rotation = 0.1/rel_rot;
-
-    if (inverse) {
-        rotation *= -1;
-    }
-    const eixo = new THREE.Vector3( 0, 1, 0 );
-    const point_translate = new THREE.Vector3( 0, 0, planet.z );
-    const point_rotate = new THREE.Vector3(planet.position.x, planet.position.y, planet.position.z);
-
-    planet.rotateAroundPoint(point_translate, translation, eixo, false); 
-    planet.rotateAroundPoint(point_rotate, rotation, eixo, false); 
-}
+//     planet.rotateAroundPoint(point_translate, translation, eixo, false); 
+//     planet.rotateAroundPoint(point_rotate, rotation, eixo, false); 
+// }
 
 init();
 animate();
